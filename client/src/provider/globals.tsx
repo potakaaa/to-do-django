@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 
-type ToDo = {
+export type ToDo = {
   id: number;
   name: string;
   done: boolean;
