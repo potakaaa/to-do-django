@@ -44,12 +44,15 @@ const App = () => {
       <div
         className={`w-10/12 h-5/6 rounded-2xl p-4 bg-background shadow-lg flex justify-center ${
           toDo.length > 0 ? "items-start" : "items-center"
-        } border border-slate-200 pt-7`}
+        } border border-slate-200 pt-7 overflow-y-scroll`}
       >
         {toDo.length > 0 ? (
           <ToDoItem todoItems={toDo} updateTodoItem={updateTodoItem} />
         ) : (
-          <Nothing />
+          <div className="flex flex-col items-center space-y-5">
+            <Nothing />
+            <PlusAddToDo />
+          </div>
         )}
       </div>
     </div>

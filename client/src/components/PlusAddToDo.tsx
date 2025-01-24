@@ -25,6 +25,7 @@ const PlusAddToDo = () => {
         console.log("Response: ", response.data);
         setToDo([...toDo, response.data]);
         console.log("To Do State: ", toDo);
+        setCurrTodo("");
       })
       .catch((error) => {
         console.error(
