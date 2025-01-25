@@ -3,14 +3,32 @@ import React from "react";
 import ToDoItem from "./ToDoItem";
 
 const ToDoList = () => {
-  const { toDo, setToDo, doneTodo } = useGlobalState();
+  const { toDo, setToDo, doneTodo, setDoneTodo } = useGlobalState();
 
-  const updateTodoItem = (id: number, updatedName: string) => {
+  const updateTodoName = (id: number, updatedName: string) => {
     // Find the todo item by id and update its name
     const updatedTodos = toDo.map((item) =>
       item.id === id ? { ...item, name: updatedName } : item
     );
-    setToDo(updatedTodos); // update the state with the modified todo list
+    setToDo(updatedTodos);
+  };
+
+  const updateTodoDoneState = (id: number, doneState: boolean) => {
+    if (doneState) {
+      // Move item from `toDo` to `doneTodo`
+      const itemToMove = toDo.find((item) => item.id === id);
+      if (itemToMove) {
+        setToDo((prev) => prev.filter((item) => item.id !== id));
+        setDoneTodo((prev) => [...prev, { ...itemToMove, done: true }]);
+      }
+    } else {
+      // Move item from `doneTodo` to `toDo`
+      const itemToMove = doneTodo.find((item) => item.id === id);
+      if (itemToMove) {
+        setDoneTodo((prev) => prev.filter((item) => item.id !== id));
+        setToDo((prev) => [...prev, { ...itemToMove, done: false }]);
+      }
+    }
   };
 
   const deleteTodoItem = (id: number) => {
@@ -20,7 +38,8 @@ const ToDoList = () => {
     <div className="w-full">
       <ToDoItem
         todoItems={toDo}
-        updateTodoItem={updateTodoItem}
+        updateTodoName={updateTodoName}
+        updateTodoDoneState={updateTodoDoneState}
         deleteTodoItem={deleteTodoItem}
         isCompleted={false}
       />
@@ -29,7 +48,8 @@ const ToDoList = () => {
           <p className="font-bold mt-10 tracking-tight mb-2">COMPLETED</p>
           <ToDoItem
             todoItems={doneTodo}
-            updateTodoItem={updateTodoItem}
+            updateTodoName={updateTodoName}
+            updateTodoDoneState={updateTodoDoneState}
             deleteTodoItem={deleteTodoItem}
             isCompleted={true}
           />

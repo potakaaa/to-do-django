@@ -7,7 +7,7 @@ import { todo } from "node:test";
 import ToDoList from "./components/ToDoList";
 
 const App = () => {
-  const { toDo, setToDo } = useGlobalState();
+  const { toDo, setToDo, doneTodo } = useGlobalState();
 
   const fetchToDo = async () => {
     try {
@@ -28,6 +28,10 @@ const App = () => {
   useEffect(() => {
     fetchToDo();
   }, [setToDo]);
+
+  useEffect(() => {
+    console.log("Done To Do State: ", doneTodo);
+  }, [doneTodo]);
 
   return (
     <div className="bg-background w-full h-screen max-h-full flex flex-col justify-center items-center">

@@ -16,10 +16,12 @@ import { Input } from "./ui/input";
 import axios from "axios";
 import Nothing from "./Nothing";
 import PlusAddToDo from "./PlusAddToDo";
+import { todo } from "node:test";
 
 interface ToDoItemProps {
   todoItems: ToDo[];
-  updateTodoItem: (id: number, updatedName: string) => void;
+  updateTodoName: (id: number, updatedName: string) => void;
+  updateTodoDoneState: (id: number, doneState: boolean) => void;
   deleteTodoItem: (id: number) => void;
   isCompleted: boolean;
 }
@@ -54,7 +56,21 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
         name: updatedName, // Keep other properties intact and only update name
       };
       handleUpdateToDo(id, updatedTodo);
-      ToDoItemProps.updateTodoItem(id, updatedName); // Pass updated todo to handleUpdateToDo
+      ToDoItemProps.updateTodoName(id, updatedName); // Pass updated todo to handleUpdateToDo
+    }
+  };
+
+  const handleDone = (id: number) => {
+    const todoToUpdate = ToDoItemProps.todoItems.find((todo) => todo.id === id);
+    const updatedDone = todoToUpdate?.done;
+
+    if (todoToUpdate) {
+      const updatedTodo = {
+        ...todoToUpdate,
+        completed: !updatedDone, // Keep other properties intact and only update done
+      };
+      handleUpdateToDo(id, updatedTodo);
+      ToDoItemProps.updateTodoDoneState(id, !updatedDone); // Pass updated todo to handleUpdateToDo
     }
   };
 
@@ -112,7 +128,10 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
             <AlertDialogFooter className="flex gap-2">
               <AlertDialogCancel>Close</AlertDialogCancel>
               <div className="w-full flex space-x-2">
-                <AlertDialogAction className="bg-success w-full">
+                <AlertDialogAction
+                  className="bg-success w-full"
+                  onClick={() => handleDone(todo.id)}
+                >
                   {todo.done ? "Undone" : "Done"}
                 </AlertDialogAction>
                 <AlertDialogAction
