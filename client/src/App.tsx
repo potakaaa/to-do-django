@@ -26,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     fetchToDo();
-  }, [toDo]);
+  }, [setToDo]);
 
   const updateTodoItem = (id: number, updatedName: string) => {
     // Find the todo item by id and update its name
@@ -34,6 +34,10 @@ const App = () => {
       item.id === id ? { ...item, name: updatedName } : item
     );
     setToDo(updatedTodos); // update the state with the modified todo list
+  };
+
+  const deleteTodoItem = (id: number) => {
+    setToDo((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -47,7 +51,11 @@ const App = () => {
         } border border-slate-200 pt-7 overflow-y-scroll`}
       >
         {toDo.length > 0 ? (
-          <ToDoItem todoItems={toDo} updateTodoItem={updateTodoItem} />
+          <ToDoItem
+            todoItems={toDo}
+            updateTodoItem={updateTodoItem}
+            deleteTodoItem={deleteTodoItem}
+          />
         ) : (
           <div className="flex flex-col items-center space-y-5">
             <Nothing />

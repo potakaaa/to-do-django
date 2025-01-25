@@ -20,6 +20,7 @@ import PlusAddToDo from "./PlusAddToDo";
 interface ToDoItemProps {
   todoItems: ToDo[];
   updateTodoItem: (id: number, updatedName: string) => void;
+  deleteTodoItem: (id: number) => void;
 }
 
 const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
@@ -51,7 +52,8 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
         ...todoToUpdate,
         name: updatedName, // Keep other properties intact and only update name
       };
-      handleUpdateToDo(id, updatedTodo); // Pass updated todo to handleUpdateToDo
+      handleUpdateToDo(id, updatedTodo);
+      ToDoItemProps.updateTodoItem(id, updatedName); // Pass updated todo to handleUpdateToDo
     }
   };
 
@@ -60,6 +62,18 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
       ...prevState,
       [id]: value, // Update the name for the specific todo item
     }));
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}api/todoitems/${id}/`
+      );
+      console.log("Deleted Todo Fetch: ", response.data);
+    } catch (error) {
+      console.error("There was a problem with your delete operation:", error);
+    }
+    ToDoItemProps.deleteTodoItem(id); // Pass the id to delete the todo item
   };
 
   return (
@@ -90,12 +104,23 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
               </AlertDialogTitle>
               <Input
                 value={editedNames[todo.id] || todo.name}
-                className="text-center font-medium"
+                className="text-center font-medium border border-input"
                 onChange={(e) => handleInputChange(todo.id, e.target.value)}
               />
             </AlertDialogHeader>
-            <AlertDialogFooter>
+            <AlertDialogFooter className="flex gap-2">
               <AlertDialogCancel>Close</AlertDialogCancel>
+              <div className="w-full flex space-x-2">
+                <AlertDialogAction className="bg-success w-full">
+                  {todo.done ? "Undone" : "Done"}
+                </AlertDialogAction>
+                <AlertDialogAction
+                  className="bg-destructive w-full"
+                  onClick={() => handleDelete(todo.id)}
+                >
+                  Delete
+                </AlertDialogAction>
+              </div>
               <AlertDialogAction onClick={() => handleSave(todo.id)}>
                 Save
               </AlertDialogAction>
