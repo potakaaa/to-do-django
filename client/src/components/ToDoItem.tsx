@@ -102,7 +102,7 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
               <div className="flex flex-col items-start w-full">
                 <p
                   className={`text-[10px] font-thin h-3 ${
-                    todo.done ? "text-green-300" : "text-red-300"
+                    todo.done ? "text-green-400" : "text-red-400"
                   }`}
                 >
                   {todo.done ? "Done" : "Not Done"}
@@ -132,7 +132,7 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
                   {todo.done ? "Undone" : "Done"}
                 </AlertDialogAction>
                 <AlertDialogAction
-                  className="bg-destructive w-full"
+                  className="bg-destructive w-full text-destructive-foreground"
                   onClick={() => handleDelete(todo.id)}
                 >
                   Delete
