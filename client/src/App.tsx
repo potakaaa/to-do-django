@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Nothing from "./components/Nothing";
 import PlusAddToDo from "./components/PlusAddToDo";
 import { useGlobalState, ToDo } from "./provider/globals";
-import ToDoItem from "./components/ToDoItem";
-import { todo } from "node:test";
 import ToDoList from "./components/ToDoList";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { toDo, setToDo, doneTodo } = useGlobalState();
@@ -34,14 +33,14 @@ const App = () => {
   }, [doneTodo]);
 
   return (
-    <div className="bg-background w-full h-screen max-h-full flex flex-col justify-center items-center">
+    <div className="bg-background w-full h-screen flex flex-col justify-center items-center overflow-y-auto">
       <h1 className="absolute top-5 font-black text-2xl tracking-tight text-primary">
         what to do?
       </h1>
       <div
-        className={`w-10/12 h-5/6 rounded-2xl p-4 bg-background shadow-lg flex justify-center ${
+        className={`w-10/12 h-auto max-h-[80%] rounded-2xl p-4 bg-background shadow-lg flex justify-center ${
           toDo.length > 0 ? "items-start" : "items-center"
-        } border border-slate-200 pt-7 overflow-y-scroll`}
+        } border border-accent pt-7 overflow-y-scroll mt-5`}
       >
         {toDo.length > 0 ? (
           <ToDoList />
@@ -52,6 +51,7 @@ const App = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

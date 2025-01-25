@@ -1,5 +1,4 @@
 import { useGlobalState } from "@/provider/globals";
-import React from "react";
 import ToDoItem from "./ToDoItem";
 
 const ToDoList = () => {
@@ -33,6 +32,7 @@ const ToDoList = () => {
 
   const deleteTodoItem = (id: number) => {
     setToDo((prev) => prev.filter((todo) => todo.id !== id));
+    setDoneTodo((prev) => prev.filter((todo) => todo.id !== id));
   };
   return (
     <div className="w-full">

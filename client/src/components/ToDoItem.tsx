@@ -3,7 +3,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -14,9 +13,7 @@ import { ToDo } from "@/provider/globals";
 import { FC, useState } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
-import Nothing from "./Nothing";
 import PlusAddToDo from "./PlusAddToDo";
-import { todo } from "node:test";
 
 interface ToDoItemProps {
   todoItems: ToDo[];
