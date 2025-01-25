@@ -17,6 +17,8 @@ interface GlobalStates {
   setToDo: React.Dispatch<React.SetStateAction<ToDo[]>>;
   currTodo: string;
   setCurrTodo: React.Dispatch<React.SetStateAction<string>>;
+  doneTodo: ToDo[];
+  setDoneTodo: React.Dispatch<React.SetStateAction<ToDo[]>>;
 }
 
 export const GlobalContext = createContext<GlobalStates | undefined>(undefined);
@@ -30,9 +32,12 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 }) => {
   const [currTodo, setCurrTodo] = useState("");
   const [toDo, setToDo] = useState<ToDo[]>([]);
+  const [doneTodo, setDoneTodo] = useState<ToDo[]>([]);
 
   return (
-    <GlobalContext.Provider value={{ currTodo, setCurrTodo, toDo, setToDo }}>
+    <GlobalContext.Provider
+      value={{ currTodo, setCurrTodo, toDo, setToDo, doneTodo, setDoneTodo }}
+    >
       {children}
     </GlobalContext.Provider>
   );

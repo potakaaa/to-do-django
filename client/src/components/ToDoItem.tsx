@@ -21,6 +21,7 @@ interface ToDoItemProps {
   todoItems: ToDo[];
   updateTodoItem: (id: number, updatedName: string) => void;
   deleteTodoItem: (id: number) => void;
+  isCompleted: boolean;
 }
 
 const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
@@ -128,7 +129,7 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
           </AlertDialogContent>
         </AlertDialog>
       ))}
-      <PlusAddToDo />
+      {ToDoItemProps.isCompleted === false && <PlusAddToDo />}
     </div>
   );
 };
