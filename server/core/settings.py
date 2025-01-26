@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
 
+STATIC_ROOT = BASE_DIR/'staticfiles'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
