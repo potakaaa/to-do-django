@@ -21,7 +21,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = ['https://potakaaa.github.io/to-do-django/']
+CORS_ALLOWED_ORIGINS = ['https://potakaaa.github.io']
 
 STORAGES = {
     "default": {
