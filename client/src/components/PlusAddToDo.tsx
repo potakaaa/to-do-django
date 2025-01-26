@@ -38,22 +38,29 @@ const PlusAddToDo = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="text-xl font-bold shadow-md">
+        <Button
+          variant="outline"
+          className="text-xl font-bold shadow-md h-9 sm:h-11 transition-all duration-300"
+        >
           +
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-64">
+      <PopoverContent className="w-64 sm:w-80 lg:w-96 p-4 bg-background shadow-lg rounded-xl transition-all duration-300">
         <div className="flex flex-col space-y-2">
           <Input
             type="text"
             id="todo"
             name="todo"
             placeholder="e.g. buy milk"
-            className="w-full text-sm"
+            className="w-full text-sm lg:text-center text-left py-0 md:py-5 md:text-base"
             value={currTodo}
             onChange={(e) => setCurrTodo(e.target.value)}
           />
-          <Button variant="default" className="mt-2" onClick={handleAddToDo}>
+          <Button
+            variant="default"
+            className="mt-2 md:text-base"
+            onClick={handleAddToDo}
+          >
             Add
           </Button>
         </div>

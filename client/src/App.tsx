@@ -33,12 +33,12 @@ const App = () => {
   }, [doneTodo]);
 
   return (
-    <div className="bg-background w-full h-screen flex flex-col justify-center items-center overflow-y-auto">
-      <h1 className="absolute top-5 font-black text-2xl tracking-tight text-primary">
+    <div className="bg-background w-full h-screen flex flex-col justify-center items-center overflow-y-auto space-y-6 sm:space-y-10 transition-all duration-300">
+      <h1 className="absolute top-5 sm:top-10 font-black text-2xl tracking-tight text-primary transition-all duration-300">
         what to do?
       </h1>
       <div
-        className={`w-10/12 h-auto max-h-[80%] rounded-2xl p-4 bg-background shadow-lg flex justify-center ${
+        className={`w-10/12 sm:w-9/12 lg:w-8/12 xl:w-6/12 h-auto max-h-[80%] rounded-2xl p-4 bg-background shadow-lg flex justify-center transition-all duration-300 ${
           toDo.length > 0 ? "items-start" : "items-center"
         } border border-accent pt-7 overflow-y-scroll mt-5`}
       >

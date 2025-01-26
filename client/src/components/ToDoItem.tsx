@@ -97,50 +97,57 @@ const ToDoItem: FC<ToDoItemProps> = (ToDoItemProps) => {
           <AlertDialogTrigger asChild>
             <Button
               variant="outline"
-              className="w-full h-12 rounded-md shadow-sm"
+              className="w-full h-12 sm:h-16 rounded-md shadow-sm transition duration-300"
             >
-              <div className="flex flex-col items-start w-full">
+              <div className="flex flex-col items-start w-full duration-0">
                 <p
-                  className={`text-[10px] font-thin h-3 ${
+                  className={`text-[10px] sm:text-xs font-thin h-3 transition-all duration-300 ${
                     todo.done ? "text-green-400" : "text-red-400"
                   }`}
                 >
                   {todo.done ? "Done" : "Not Done"}
                 </p>
-                <p className="text-base">{todo.name}</p>
+                <p className="text-base sm:text-lg">{todo.name}</p>
               </div>
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent className="w-72 rounded-xl">
+          <AlertDialogContent className="w-72 sm:w-96 rounded-xl">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-sm items-start w-full">
-                Edit{" "}
+                Edit {todo.name}
               </AlertDialogTitle>
               <Input
                 value={editedNames[todo.id] || todo.name}
-                className="text-center font-medium border border-input"
+                className="text-center text-base sm:text-lg lg:text-lg py-0 sm:py-5 lg:py-6 font-medium border border-input"
                 onChange={(e) => handleInputChange(todo.id, e.target.value)}
               />
             </AlertDialogHeader>
             <AlertDialogFooter className="flex gap-2">
-              <AlertDialogCancel>Close</AlertDialogCancel>
-              <div className="w-full flex space-x-2">
+              <div className="w-full flex flex-col space-y-3">
+                <AlertDialogCancel className="text-sm md:text-base">
+                  Close
+                </AlertDialogCancel>
+                <div className="w-full flex space-x-2">
+                  <AlertDialogAction
+                    className="bg-success w-full text-sm md:text-base"
+                    onClick={() => handleDone(todo.id)}
+                  >
+                    {todo.done ? "Undone" : "Done"}
+                  </AlertDialogAction>
+                  <AlertDialogAction
+                    className="bg-destructive w-full text-destructive-foreground text-sm md:text-base"
+                    onClick={() => handleDelete(todo.id)}
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </div>
                 <AlertDialogAction
-                  className="bg-success w-full"
-                  onClick={() => handleDone(todo.id)}
+                  onClick={() => handleSave(todo.id)}
+                  className="text-sm md:text-base"
                 >
-                  {todo.done ? "Undone" : "Done"}
-                </AlertDialogAction>
-                <AlertDialogAction
-                  className="bg-destructive w-full text-destructive-foreground"
-                  onClick={() => handleDelete(todo.id)}
-                >
-                  Delete
+                  Save
                 </AlertDialogAction>
               </div>
-              <AlertDialogAction onClick={() => handleSave(todo.id)}>
-                Save
-              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
