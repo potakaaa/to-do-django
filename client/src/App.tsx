@@ -45,7 +45,7 @@ const App = () => {
           toDo.length > 0 ? "items-start" : "items-center"
         } border border-accent pt-7 overflow-y-scroll mt-5`}
       >
-        {toDo.length > 0 ? (
+        {toDo.length > 0 || doneTodo.length > 0 ? (
           <ToDoList />
         ) : (
           <div className="flex flex-col items-center space-y-5">
